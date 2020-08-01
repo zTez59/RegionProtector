@@ -13,8 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class RPPlugin extends JavaPlugin implements IPlugin {
 
-    private IRegistrations IRegistrations;
-    private ILogger ILogger;
+    private IRegistrations iRegistrations;
+    private ILogger iLogger;
     private WorldEditPlugin worldEditPlugin;
 
     @Override
@@ -22,29 +22,29 @@ public class RPPlugin extends JavaPlugin implements IPlugin {
         RegionProtectorAPI.setInstance(this);
 
         this.worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-        this.ILogger = new RPLogger();
-        this.IRegistrations = new RPRegistrations();
+        this.iLogger = new RPLogger();
+        this.iRegistrations = new RPRegistrations();
     }
 
     @Override
     public void onEnable() {
-        this.ILogger.startDelay();
-        this.IRegistrations.enable().whenComplete((v, e) -> this.ILogger.logDelay("Plugin enabled in %s ms"));
+        this.iLogger.startDelay();
+        this.iRegistrations.enable().whenComplete((v, e) -> this.iLogger.logDelay("Plugin enabled in %s ms"));
     }
 
     @Override
     public void onDisable() {
-        this.IRegistrations.disable();
+        this.iRegistrations.disable();
     }
 
     @Override
     public ILogger getILogger() {
-        return this.ILogger;
+        return this.iLogger;
     }
 
     @Override
     public IRegistrations getIRegistrations() {
-        return this.IRegistrations;
+        return this.iRegistrations;
     }
 
     @Override
