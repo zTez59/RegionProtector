@@ -1,0 +1,13 @@
+name: RegionProtector
+version: 1.0.0
+author: zTez59
+main: fr.ztez59.regionprotector.core.RPPlugin
+depend:
+  - WorldEdit
+commands:
+  regionprotector:
+    description: Plugin base command.
+    aliases:
+      - rp
+      - regionp
+      - rprotector
