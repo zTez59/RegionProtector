@@ -32,17 +32,17 @@ public class RPBaseCommand implements CommandExecutor {
                         .findFirst();
 
                 if (subCommand.isPresent()) {
-                    final ICommand ICommand = subCommand.get();
+                    final ICommand iCommand = subCommand.get();
 
-                    if (!ICommand.getPermission().isEmpty() && !this.checkPermission(sender, ICommand.getPermission()))
+                    if (!iCommand.getPermission().isEmpty() && !this.checkPermission(sender, iCommand.getPermission()))
                         return true;
 
-                    if (ICommand.needPlayer() && !(sender instanceof Player)) {
+                    if (iCommand.needPlayer() && !(sender instanceof Player)) {
                         sender.sendMessage(RPConfig.COMMAND_ONLYPLAYER.getString());
                         return true;
                     }
 
-                    if (!ICommand.execute(sender, args)) {
+                    if (!iCommand.execute(sender, args)) {
                         this.displayHelp(sender);
                     }
                 } else {

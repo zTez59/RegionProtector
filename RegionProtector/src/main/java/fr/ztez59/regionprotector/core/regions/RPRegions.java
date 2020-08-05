@@ -11,35 +11,35 @@ import java.util.List;
 
 public class RPRegions implements IRegions {
 
-    private IStorage IStorage;
+    private IStorage iStorage;
 
     public RPRegions() {
-        this.IStorage = RegionProtectorAPI.get().getIRegistrations().getIStorage();
+        this.iStorage = RegionProtectorAPI.get().getIRegistrations().getIStorage();
     }
 
     @Override
     public void addRegion(String name, ILocation first, ILocation second) {
-        this.IStorage.store(new RPRegion(name, new ArrayList<>(), new ArrayList<>(), new RPLocation(first), new RPLocation(second)));
+        this.iStorage.store(new RPRegion(name, new ArrayList<>(), new ArrayList<>(), new RPLocation(first), new RPLocation(second)));
     }
 
     @Override
     public void removeRegion(String name) {
-        this.IStorage.delete(name);
+        this.iStorage.delete(name);
     }
 
     @Override
     public boolean hasRegion(String name) {
-        return this.IStorage.getDataList().stream().anyMatch(rpRegion -> rpRegion.getName().equals(name));
+        return this.iStorage.getDataList().stream().anyMatch(rpRegion -> rpRegion.getName().equals(name));
     }
 
     @Override
     public IRegion getRegion(String name) {
-        return this.IStorage.getDataList().stream().filter(rpRegion -> rpRegion.getName().equals(name)).findFirst().orElse(null);
+        return this.iStorage.getDataList().stream().filter(rpRegion -> rpRegion.getName().equals(name)).findFirst().orElse(null);
     }
 
     @Override
     public List<IRegion> getRegions() {
-        return this.IStorage.getDataList();
+        return this.iStorage.getDataList();
     }
 
 }

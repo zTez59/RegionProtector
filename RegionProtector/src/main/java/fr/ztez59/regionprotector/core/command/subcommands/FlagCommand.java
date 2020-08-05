@@ -45,9 +45,9 @@ public class FlagCommand implements ICommand {
     public boolean execute(CommandSender sender, String[] args) {
         if (args.length == 4) {
             final String regionName = args[1].toLowerCase();
-            final IRegions IRegions = RegionProtectorAPI.get().getIRegistrations().getIRegions();
+            final IRegions iRegions = RegionProtectorAPI.get().getIRegistrations().getIRegions();
 
-            if (!IRegions.hasRegion(regionName)) {
+            if (!iRegions.hasRegion(regionName)) {
                 sender.sendMessage("La region n'existe pas.");
                 return true;
             }
@@ -61,7 +61,7 @@ public class FlagCommand implements ICommand {
                 return true;
             }
 
-            final IRegion IRegion = IRegions.getRegion(regionName);
+            final IRegion IRegion = iRegions.getRegion(regionName);
             final boolean value = Boolean.parseBoolean(args[3]);
 
             if (value) {

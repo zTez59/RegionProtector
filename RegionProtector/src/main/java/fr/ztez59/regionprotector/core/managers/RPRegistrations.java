@@ -22,17 +22,17 @@ import java.util.concurrent.CompletableFuture;
 
 public class RPRegistrations implements fr.ztez59.regionprotector.api.managers.IRegistrations {
 
-    private List<IStorage> IStorages;
-    private List<ICommand> ICommands;
+    private List<IStorage> iStorages;
+    private List<ICommand> iCommands;
 
-    private IStorage IStorage;
-    private IRegions IRegions;
+    private IStorage iStorage;
+    private IRegions iRegions;
 
     @Override
     public CompletableFuture<Void> enable() {
         return CompletableFuture.runAsync(() -> {
-            this.ICommands = new ArrayList<>();
-            this.IStorages = new ArrayList<>();
+            this.iStorages = new ArrayList<>();
+            this.iCommands = new ArrayList<>();
 
             RPConfig.register();
 
@@ -49,9 +49,9 @@ public class RPRegistrations implements fr.ztez59.regionprotector.api.managers.I
 
             this.registerListeners();
 
-            this.IStorage.load();
+            this.iStorage.load();
 
-            this.IRegions = new RPRegions();
+            this.iRegions = new RPRegions();
 
             Bukkit.getScheduler().runTaskTimerAsynchronously(RegionProtectorAPI.get().getPlugin(), new RegionsTask(), 5L, 5L);
         });
@@ -59,8 +59,8 @@ public class RPRegistrations implements fr.ztez59.regionprotector.api.managers.I
 
     @Override
     public void disable() {
-        this.ICommands.clear();
-        this.IStorage.saveAll();
+        this.iCommands.clear();
+        this.iStorage.saveAll();
     }
 
 
@@ -80,13 +80,13 @@ public class RPRegistrations implements fr.ztez59.regionprotector.api.managers.I
     public void registerStorages(Class<? extends IStorage>... storages) {
         Arrays.asList(storages).forEach(this::registerStorage);
 
-        this.IStorage = this.IStorages.stream().filter(rpStorage -> rpStorage.getName().equals(RPConfig.STORAGE_NAME.getString().toLowerCase())).findFirst().orElseGet(() -> this.IStorages.stream().filter(rpStorage -> rpStorage.getName().equals("flatfile")).findFirst().orElse(null));
+        this.iStorage = this.iStorages.stream().filter(rpStorage -> rpStorage.getName().equals(RPConfig.STORAGE_NAME.getString().toLowerCase())).findFirst().orElseGet(() -> this.iStorages.stream().filter(rpStorage -> rpStorage.getName().equals("flatfile")).findFirst().orElse(null));
     }
 
     @Override
     public void registerCommand(Class<? extends ICommand> command) {
         try {
-            this.ICommands.add(command.newInstance());
+            this.iCommands.add(command.newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -95,7 +95,7 @@ public class RPRegistrations implements fr.ztez59.regionprotector.api.managers.I
     @Override
     public void registerStorage(Class<? extends IStorage> storage) {
         try {
-            this.IStorages.add(storage.newInstance());
+            this.iStorages.add(storage.newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -103,17 +103,17 @@ public class RPRegistrations implements fr.ztez59.regionprotector.api.managers.I
 
     @Override
     public List<ICommand> getICommands() {
-        return this.ICommands;
+        return this.iCommands;
     }
 
     @Override
     public IStorage getIStorage() {
-        return this.IStorage;
+        return this.iStorage;
     }
 
     @Override
     public IRegions getIRegions() {
-        return this.IRegions;
+        return this.iRegions;
     }
 
 }

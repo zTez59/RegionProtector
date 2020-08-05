@@ -7,20 +7,20 @@ import org.bukkit.Bukkit;
 
 public class RegionsTask implements Runnable {
 
-    private final IStorage IStorage;
+    private final IStorage iStorage;
 
     public RegionsTask() {
-        this.IStorage = RegionProtectorAPI.get().getIRegistrations().getIStorage();
+        this.iStorage = RegionProtectorAPI.get().getIRegistrations().getIStorage();
     }
 
     @Override
     public void run() {
-        if (Bukkit.getOnlinePlayers().isEmpty() || this.IStorage.getDataList().isEmpty()) return;
+        if (Bukkit.getOnlinePlayers().isEmpty() || this.iStorage.getDataList().isEmpty()) return;
 
         RegionProtectorAPI.get().getILogger().startDelay();
 
         Bukkit.getOnlinePlayers().forEach(player ->
-                this.IStorage.getDataList().forEach(rpRegion -> {
+                this.iStorage.getDataList().forEach(rpRegion -> {
                     final String playerName = player.getName();
                     final boolean inCuboid = rpRegion.inCuboid(player.getLocation());
                     final boolean contains = rpRegion.getPlayersBackup().contains(playerName);

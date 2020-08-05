@@ -50,16 +50,16 @@ public class RegionCommand implements ICommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
 
-        final IRegistrations IRegistrations = RegionProtectorAPI.get().getIRegistrations();
-        final List<IRegion> iStorage = IRegistrations.getIStorage().getDataList();
+        final IRegistrations iRegistrations = RegionProtectorAPI.get().getIRegistrations();
+        final List<IRegion> iStorage = iRegistrations.getIStorage().getDataList();
 
         if (args.length == 3) {
-            final IRegions IRegions = IRegistrations.getIRegions();
+            final IRegions iRegions = iRegistrations.getIRegions();
             final String name = args[2].toLowerCase();
 
             switch (args[1].toLowerCase()) {
                 case "create":
-                    if (IRegions.hasRegion(name)) {
+                    if (iRegions.hasRegion(name)) {
                         sender.sendMessage(RPConfig.COMMAND_REGION_EXIST.getString());
                         return true;
                     }
@@ -74,7 +74,7 @@ public class RegionCommand implements ICommand {
                     final Location firstPoint = selection.getMinimumPoint();
                     final Location secondPoint = selection.getMaximumPoint();
 
-                    IRegions.addRegion(name,
+                    iRegions.addRegion(name,
                             new RPLocation(firstPoint.getWorld().getName(), firstPoint.getBlockX(), firstPoint.getBlockY(), firstPoint.getBlockZ()),
                             new RPLocation(secondPoint.getWorld().getName(), secondPoint.getBlockX(), secondPoint.getBlockY(), secondPoint.getBlockZ())
                     );
@@ -92,7 +92,7 @@ public class RegionCommand implements ICommand {
         } else if (args.length == 2) {
             if (args[1].toLowerCase().equals("list")) {
                 if (iStorage.isEmpty()) {
-                    sender.sendMessage("YA R LE FRERE !");
+                    sender.sendMessage("NOTHING !");
                 } else {
                     iStorage.forEach(iRegion -> sender.sendMessage(iRegion.getName()));
                 }

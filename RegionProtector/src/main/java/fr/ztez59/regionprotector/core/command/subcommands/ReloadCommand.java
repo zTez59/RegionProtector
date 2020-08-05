@@ -43,13 +43,11 @@ public class ReloadCommand implements ICommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {
-        final ILogger ILogger = RegionProtectorAPI.get().getILogger();
+        final ILogger iLogger = RegionProtectorAPI.get().getILogger();
 
-        ILogger.startDelay();
+        iLogger.startDelay();
         RPConfig.register();
-        ILogger.sendDelay(sender, RPConfig.RELOAD);
-
-
+        iLogger.sendDelay(sender, RPConfig.RELOAD);
         return true;
     }
 
